@@ -4,3 +4,4 @@ langchain-openai
 crewai
 composio-langchain
 fal-client 
+pysqlite3-binary
