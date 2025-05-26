@@ -1,0 +1,6 @@
+streamlit
+langchain
+langchain-openai
+crewai
+composio-langchain
+fal-client 
