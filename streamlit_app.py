@@ -7,6 +7,9 @@ from langchain.agents import create_openai_functions_agent, AgentExecutor
 from langchain import hub
 from composio_langchain import ComposioToolSet, Action
 import fal_client
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 st.set_page_config(page_title="YouTube Resource Generator")
 st.title("YouTube Resource Generator")
