@@ -5,3 +5,4 @@ crewai
 composio-langchain
 fal-client 
 pysqlite3-binary
+openai-agents
