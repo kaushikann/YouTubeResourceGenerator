@@ -19,7 +19,7 @@ if st.button("Generate Resources"):
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
     crewllm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     agent = Agent(name="Assistant", instructions="You are a helpful teaching assistant. You are given a topic and you need to find the information and summarize it in a way that is easy to understand for a class 10 student. Summarize the important topics and sub topics. You only go to the original website to find the information. Whereever applicable quote chemical reactions, diagrams, examples",)
-    result_oa = Runner.run_sync(agent, user_prompt)
+    result_oa = Runner.run_async(agent, user_prompt)
     st.subheader("OpenAI Agent Response")
     st.write(result_oa)
 
