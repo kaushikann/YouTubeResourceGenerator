@@ -7,19 +7,22 @@ from langchain import hub
 from composio_langchain import ComposioToolSet, Action
 import fal_client
 from agents import Agent, Runner
+import asyncio    
 
 st.set_page_config(page_title="YouTube Resource Generator")
 st.title("YouTube Resource Generator")
 
 # User input
 user_prompt = st.text_input("Enter your topic (e.g., NCERT Class 10 Science Chapter 1):", "NCERT Class 10 Science Chapter 1")
+async def run_agent_async(agent, user_prompt):
+    return await agent.arun(user_prompt)  # or invoke_async
 
 if st.button("Generate Resources"):
     # CrewAI Section
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
     crewllm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     agent = Agent(name="Assistant", instructions="You are a helpful teaching assistant. You are given a topic and you need to find the information and summarize it in a way that is easy to understand for a class 10 student. Summarize the important topics and sub topics. You only go to the original website to find the information. Whereever applicable quote chemical reactions, diagrams, examples",)
-    result_oa = Runner.run_async(agent, user_prompt)
+    result_oa = asyncio.run(run_agent_async(agent, user_prompt))
     st.subheader("OpenAI Agent Response")
     st.write(result_oa)
 
