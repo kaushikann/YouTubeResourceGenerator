@@ -91,13 +91,3 @@ if st.button("Generate Resources"):
         st.audio(audio_url)
     else:
         st.write("Audio generation failed or no audio URL returned.")
-
-    # YouTube Thumbnail Section
-    st.subheader("YouTube Thumbnail")
-    imagellm=
-    thumbnail=openai.Image.create(
-        prompt="A thumbnail for a YouTube video about the topic",
-        n=1,
-        size="1024x1024"
-    )
-    st.image(thumbnail.data[0].url)
