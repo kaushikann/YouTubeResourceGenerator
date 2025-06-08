@@ -40,8 +40,8 @@ if st.button("Generate Resources"):
         filtered_results = []
         for result in original_messages:
             filtered_results.append({
-                "title": result["data"]["response_data"]["items"]["snippet"]["title"],
-                "description": result["data"]["response_data"]["items"]["snippet"]["description"]
+                "title": original_messages["data"]["response_data"]["items"]["snippet"]["title"],
+                "description": original_messages["data"]["response_data"]["items"]["snippet"]["description"]
             })
         processed_result = {
             "successful": True,
