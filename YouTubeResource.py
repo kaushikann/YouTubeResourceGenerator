@@ -29,7 +29,7 @@ if st.button("Generate Resources"):
     result_oa = Runner.run(agent, user_prompt)
     st.write("result_oa")
     st.subheader("OpenAI Agent Response")
-    st.write(result_oa)
+    st.write(result_oa.final_output)
 
     # MCP (YouTube Search) Section
     prompt = hub.pull("hwchase17/openai-functions-agent")
