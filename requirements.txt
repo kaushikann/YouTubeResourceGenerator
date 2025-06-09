@@ -7,3 +7,5 @@ fal-client
 pysqlite3-binary
 openai-agents
 nest_asyncio
+python-dotenv
+youtube-search-python
