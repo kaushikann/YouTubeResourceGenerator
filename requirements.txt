@@ -9,3 +9,4 @@ openai-agents
 nest_asyncio
 python-dotenv
 youtube-search-python
+httpx<0.28
