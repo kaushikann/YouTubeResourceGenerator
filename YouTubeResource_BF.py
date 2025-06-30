@@ -24,7 +24,7 @@ st.write("This tool will help new YouTube content creators to generate all the r
 # User input
 
 classes=st.selectbox("Select the Class", ("Class 9", "Class 10", "Class 11", "Class 12"))
-subject=st.selectbox("Select the Subject", ("Science", "Maths", "Social Science"))
+subject=st.selectbox("Select the Subject", ("Science", "Maths", "Sociology", "History", "Geography", "Political Science", "Economics"))
 chapter=st.text_input("Enter the Chapter Number", "1")
 user_prompt = f"NCERT {classes} {subject} Chapter {chapter}"
 
