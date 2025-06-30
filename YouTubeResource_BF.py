@@ -156,6 +156,7 @@ if st.button("Generate Resources"):
                         st.write(f"**Views:** {video['views']}")
                         st.write(f"**Duration:** {video['duration']}")
                         st.write(f"**Published:** {video['published']}")
+                        st.write(f"**Description:** {video['description']}")
                         st.write(f"**Link:** [{video['link']}]({video['link']})")
                         
                         # Add a button to watch the video
