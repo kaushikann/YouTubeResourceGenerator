@@ -174,7 +174,7 @@ if st.button("Generate Resources"):
             client = OpenAI()
             img = client.images.generate(
             model="dall-e-3",
-            prompt=chapter_summary_text,
+            prompt=f"Generate a YouTube suitable Thumbnail image which is as per Search Engine Optimization standards on the description:" chapter_summary_text,
             n=1,
             size="1024x1024"
         )
