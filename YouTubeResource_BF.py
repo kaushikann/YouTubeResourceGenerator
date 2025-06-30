@@ -149,7 +149,7 @@ if st.button("Generate Resources"):
                     with st.expander(f"Video {i+1}: {video['title']}"):
                         # Display thumbnail if available
                         if video['thumbnail']:
-                            st.image(video['thumbnail'], use_column_width=True)
+                            st.image(video['thumbnail'], use_container_width=True)
                         
                         # Display video details
                         st.write(f"**Channel:** {video['channel']}")
