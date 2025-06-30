@@ -142,7 +142,7 @@ if st.button("Generate Resources"):
                         "thumbnail": video.get('thumbnails', [{}])[0].get('url', '') if video.get('thumbnails') else ''
                     })
                 
-                st.subheader(f"Found {len(videos)} Videos for '{user_prompt}'")
+                st.subheader(f"Listing top {len(videos)} search results from YouTube on the given topic")
                 
                 # Display videos in a more user-friendly way
                 for i, video in enumerate(videos):
