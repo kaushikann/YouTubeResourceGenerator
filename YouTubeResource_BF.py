@@ -128,7 +128,7 @@ if st.button("Generate Resources"):
     try:
         with st.spinner("Generating MCQs from topic..."):
             mcqprompt=f"""Generate 50 MCQs from the text: {chapter_summary_text}
-                    1. The MCQs should be in the format of a question and 4 options (A,B,C,D).
+                    1. The MCQs should be in the format of a question and 4 options (A,B,C,D). Options should start from the next line after the question.
                     2. Do not give the correct answer in the question itself.
                     3. The key to the correct answers should be given at the end of all the 50 questions along with the explanation as to why the correct answer is correct.
                     4. Stick to the text provided and do not make up any questions.
@@ -137,10 +137,11 @@ if st.button("Generate Resources"):
             st.subheader(":blue[MCQs for the topic:]")
             mcqs=result_mcq.content
             st.write(mcqs)
-            st.download_button(label="Download MCQs",data=mcqs,file_name="MCQ.pdf")
+            st.download_button(label="Download MCQs",data=mcqs,file_name="MCQ.txt",icon=":material/download:")
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
+    st.subheader(":blue[Audio for the contents of the video:]")
     try:
         with st.spinner("Generating audio from text..."):
             # Check if FAL_KEY is available
@@ -158,7 +159,6 @@ if st.button("Generate Resources"):
                 st.warning(f"Text too long ({len(chapter_summary_text)} chars), truncating to {max_chars} chars")
                 chapter_summary_text = chapter_summary_text[:max_chars] + "..."
             
-            st.subheader(":blue[Audio for the contents of the video:]")
             st.write(f"Generating audio for text ({len(chapter_summary_text)} chars)")
             
             # Try both parameter formats to handle API changes
