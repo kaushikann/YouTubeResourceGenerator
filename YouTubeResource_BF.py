@@ -187,3 +187,19 @@ if st.button("Generate Resources"):
         st.error(f"Error in Thumbnail section: {str(e)}")
         import traceback
         st.code(traceback.format_exc())
+
+#Generate MCQs
+    try:
+        with st.spinner("Generating MCQs from topic..."):
+            mcqprompt=f"""Generate 50 MCQs from the text: {chapter_summary_text}
+                    1. The MCQs should be in the format of a question and 4 options (A,B,C,D).
+                    2. Do not give the correct answer in the question itself. Instead the key to correct answers should be given at the end of all the 50 questions.
+                    3. Give explanation as to why the correct answer is correct.
+                    4. Stick to the text provided and do not make up any questions.
+                    """
+            result_mcq = llm.invoke(mcqprompt)
+            st.subheader(":blue[MCQs for the topic:]")
+            st.write(result_mcq.final_output)
+    except Exception as e:
+        st.error(f"Error in MCQ section: {str(e)}")
+
