@@ -137,7 +137,7 @@ if st.button("Generate Resources"):
             st.subheader(":blue[MCQs for the topic:]")
             mcqs=result_mcq.content
             st.write(mcqs)
-            st.download_button("Download MCQs",mcqs,user_prompt,"pdf")
+            st.download_button(label="Download MCQs",data=mcqs,file_name="MCQ.pdf")
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
