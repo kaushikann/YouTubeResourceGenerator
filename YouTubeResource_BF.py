@@ -149,17 +149,14 @@ if st.button("Generate Resources"):
             # Split the MCQs into lines and add them to the PDF
             for line in mcqs.split('\n'):
                 pdf.multi_cell(0, 10, line)
-            pdf_output = BytesIO()
-            pdf.output(pdf_output)
-            pdf_output.seek(0)
+            pdf_bytes = pdf.output(dest='S').encode('latin-1')
 
             st.download_button(
                 label="Download MCQs as PDF",
-                data=pdf_output,
-                file_name="MCQ.pdf",
+                data=pdf_bytes,
+                file_name=user_prompt,
                 mime="application/pdf",
                 icon=":material/download:"
-            )
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
