@@ -46,6 +46,7 @@ if st.button("Generate Resources"):
             
             st.subheader(":blue[Contents of the Video for the given topic:]")
             st.write(result_oa.final_output)
+            chapter_summary_text = str(result_oa.final_output) if result_oa else user_prompt
     except Exception as e:
         st.error(f"Error in AI Agents section: {str(e)}")
 
@@ -148,10 +149,7 @@ if st.button("Generate Resources"):
                 raise ValueError("Missing FAL_KEY environment variable")
             
             os.environ["FAL_KEY"] = fal_key
-            
-            # Use the OpenAI agent's output as the text for TTS
-            chapter_summary_text = str(result_oa.final_output) if result_oa else user_prompt
-            
+                       
             # Limit text length if needed (ElevenLabs has a character limit)
             max_chars = 2500  # ElevenLabs turbo has lower limits
             if len(chapter_summary_text) > max_chars:
