@@ -156,7 +156,7 @@ if st.button("Generate Resources"):
                 data=pdf_bytes,
                 file_name=user_prompt,
                 mime="application/pdf",
-                icon=":material/download:"
+                icon=":material/download:")
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
