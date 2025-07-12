@@ -18,8 +18,8 @@ from openai import OpenAI
 from youtubesearchpython import VideosSearch
 
 st.set_page_config(page_title="YouTube Resource Generator")
-st.title(":red[YouTube Resource Generator]")
-st.write("This tool will help new YouTube content creators to generate all the resources required for creating their first YouTube videos. The output will have Text Content, Audio File, Competitor Analysis, Thumbnail and MCQs on the topic. This video generator is focused on CBSE topics.")
+st.title(":red[YouTube Starter Kit for Teachers]")
+st.write("This tool will help new YouTube content creators (especially teachers) to generate all the resources required for creating their first YouTube videos. The output will have Text Content, Audio File, Competitor Analysis, Thumbnail and MCQs on the topic. This video generator is focused on CBSE topics.")
 
 # User input
 
