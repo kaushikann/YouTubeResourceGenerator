@@ -49,71 +49,6 @@ if st.button("Generate Resources"):
     except Exception as e:
         st.error(f"Error in AI Agents section: {str(e)}")
 
-    # Text-to-Audio Section
-    try:
-        with st.spinner("Generating audio from text..."):
-            # Check if FAL_KEY is available
-            fal_key = os.getenv("FAL_KEY")
-            if not fal_key:
-                st.error("FAL_KEY environment variable is not set. Please check your .env file.")
-                st.info("To fix this, add your FAL_KEY to the .env file in the format: FAL_KEY=your_key_here")
-                raise ValueError("Missing FAL_KEY environment variable")
-            
-            os.environ["FAL_KEY"] = fal_key
-            
-            # Use the OpenAI agent's output as the text for TTS
-            chapter_summary_text = str(result_oa.final_output) if result_oa else user_prompt
-            
-            # Limit text length if needed (ElevenLabs has a character limit)
-            max_chars = 2500  # ElevenLabs turbo has lower limits
-            if len(chapter_summary_text) > max_chars:
-                st.warning(f"Text too long ({len(chapter_summary_text)} chars), truncating to {max_chars} chars")
-                chapter_summary_text = chapter_summary_text[:max_chars] + "..."
-            
-            st.subheader(":blue[Audio for the contents of the video:]")
-            st.write(f"Generating audio for text ({len(chapter_summary_text)} chars)")
-            
-            # Try both parameter formats to handle API changes
-            try:
-                # First try with 'voice' parameter
-                audio_result = fal_client.subscribe(
-                    "fal-ai/elevenlabs/tts/turbo-v2.5",
-                    arguments={
-                        "text": chapter_summary_text,
-                        "voice": '21m00Tcm4TlvDq8ikWAM'  # Rachel voice
-                    },
-                    with_logs=True
-                )
-            except Exception as e:
-                st.warning(f"First attempt failed: {str(e)}. Trying alternative parameter format...")
-                # Try with 'voice_id' parameter
-                audio_result = fal_client.subscribe(
-                    "fal-ai/elevenlabs/tts/turbo-v2.5",
-                    arguments={
-                        "text": chapter_summary_text,
-                        "voice_id": '21m00Tcm4TlvDq8ikWAM'  # Rachel voice
-                    },
-                    with_logs=True
-                )
-            
-           
-            # Get the audio URL
-            audio_url = audio_result.get("audio_url") or audio_result.get("url")
-            
-            if audio_url:
-                st.success("Audio generation successful!")
-                st.write(audio_url)
-            else:
-                st.error("Audio generation failed.")
-
-    except Exception as e:
-        st.error(f"Error in Text-to-Audio section: {str(e)}")
-
-        
-        # Fallback to just displaying the text if audio generation fails
-
-
-
 
     # YouTube Search Section (using youtube-search-python)
     try:
@@ -199,7 +134,65 @@ if st.button("Generate Resources"):
                     """
             result_mcq = crewllm.invoke(mcqprompt)
             st.subheader(":blue[MCQs for the topic:]")
-            st.write(result_mcq.final_output)
+            st.write(result_mcq)
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
+    # Text-to-Audio Section
+    try:
+        with st.spinner("Generating audio from text..."):
+            # Check if FAL_KEY is available
+            fal_key = os.getenv("FAL_KEY")
+            if not fal_key:
+                st.error("FAL_KEY environment variable is not set. Please check your .env file.")
+                st.info("To fix this, add your FAL_KEY to the .env file in the format: FAL_KEY=your_key_here")
+                raise ValueError("Missing FAL_KEY environment variable")
+            
+            os.environ["FAL_KEY"] = fal_key
+            
+            # Use the OpenAI agent's output as the text for TTS
+            chapter_summary_text = str(result_oa.final_output) if result_oa else user_prompt
+            
+            # Limit text length if needed (ElevenLabs has a character limit)
+            max_chars = 2500  # ElevenLabs turbo has lower limits
+            if len(chapter_summary_text) > max_chars:
+                st.warning(f"Text too long ({len(chapter_summary_text)} chars), truncating to {max_chars} chars")
+                chapter_summary_text = chapter_summary_text[:max_chars] + "..."
+            
+            st.subheader(":blue[Audio for the contents of the video:]")
+            st.write(f"Generating audio for text ({len(chapter_summary_text)} chars)")
+            
+            # Try both parameter formats to handle API changes
+            try:
+                # First try with 'voice' parameter
+                audio_result = fal_client.subscribe(
+                    "fal-ai/elevenlabs/tts/turbo-v2.5",
+                    arguments={
+                        "text": chapter_summary_text,
+                        "voice": '21m00Tcm4TlvDq8ikWAM'  # Rachel voice
+                    },
+                    with_logs=True
+                )
+            except Exception as e:
+                st.warning(f"First attempt failed: {str(e)}. Trying alternative parameter format...")
+                # Try with 'voice_id' parameter
+                audio_result = fal_client.subscribe(
+                    "fal-ai/elevenlabs/tts/turbo-v2.5",
+                    arguments={
+                        "text": chapter_summary_text,
+                        "voice_id": '21m00Tcm4TlvDq8ikWAM'  # Rachel voice
+                    },
+                    with_logs=True
+                )
+            
+           
+            # Get the audio URL
+            audio_url = audio_result.get("audio_url") or audio_result.get("url")
+            
+            if audio_url:
+                st.success("Audio generation successful!")
+                st.write(audio_url)
+            else:
+                st.error("Audio generation failed.")
 
+    except Exception as e:
+        st.error(f"Error in Text-to-Audio section: {str(e)}")
