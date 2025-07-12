@@ -136,8 +136,9 @@ if st.button("Generate Resources"):
             result_mcq = crewllm.invoke(mcqprompt)
             st.subheader(":blue[MCQs for the topic:]")
             mcqs=result_mcq.content
-            st.write(mcqs)
-            st.download_button(label="Download MCQs",data=mcqs,file_name="MCQ.txt",icon=":material/download:")
+            message = st.text_area("MCQs", value=mcqs)
+            
+            st.download_button(label="Download MCQs",data=message,file_name="MCQ.PDF",icon=":material/download:")
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
