@@ -126,6 +126,9 @@ if st.button("Generate Resources"):
 
 #Generate MCQs
     try:
+        from io import BytesIO
+        from fpdf import FPDF
+
         with st.spinner("Generating MCQs from topic..."):
             mcqprompt=f"""Generate 50 MCQs from the text: {chapter_summary_text}
                     1. The MCQs should be in the format of a question and 4 options (A,B,C,D). Options should start from the next line after the question.
@@ -135,10 +138,28 @@ if st.button("Generate Resources"):
                     """
             result_mcq = crewllm.invoke(mcqprompt)
             st.subheader(":blue[MCQs for the topic:]")
-            mcqs=result_mcq.content
+            mcqs = result_mcq.content
             message = st.text_area("MCQs", value=mcqs)
-            
-            st.download_button(label="Download MCQs",data=message,file_name="MCQ.PDF",icon=":material/download:")
+
+            # Generate PDF from MCQs text
+            pdf = FPDF()
+            pdf.add_page()
+            pdf.set_auto_page_break(auto=True, margin=15)
+            pdf.set_font("Arial", size=12)
+            # Split the MCQs into lines and add them to the PDF
+            for line in mcqs.split('\n'):
+                pdf.multi_cell(0, 10, line)
+            pdf_output = BytesIO()
+            pdf.output(pdf_output)
+            pdf_output.seek(0)
+
+            st.download_button(
+                label="Download MCQs as PDF",
+                data=pdf_output,
+                file_name="MCQ.pdf",
+                mime="application/pdf",
+                icon=":material/download:"
+            )
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
