@@ -129,13 +129,15 @@ if st.button("Generate Resources"):
         with st.spinner("Generating MCQs from topic..."):
             mcqprompt=f"""Generate 50 MCQs from the text: {chapter_summary_text}
                     1. The MCQs should be in the format of a question and 4 options (A,B,C,D).
-                    2. Do not give the correct answer in the question itself. Instead the key to correct answers should be given at the end of all the 50 questions.
-                    3. Give explanation as to why the correct answer is correct.
+                    2. Do not give the correct answer in the question itself.
+                    3. The key to the correct answers should be given at the end of all the 50 questions along with the explanation as to why the correct answer is correct.
                     4. Stick to the text provided and do not make up any questions.
                     """
             result_mcq = crewllm.invoke(mcqprompt)
             st.subheader(":blue[MCQs for the topic:]")
-            st.write(result_mcq)
+            mcqs=result_mcq.content
+            st.write(mcqs)
+            st.download_button("Download MCQs",mcqs,user_prompt,"pdf")
     except Exception as e:
         st.error(f"Error in MCQ section: {str(e)}")
     # Text-to-Audio Section
