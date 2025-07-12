@@ -197,7 +197,7 @@ if st.button("Generate Resources"):
                     3. Give explanation as to why the correct answer is correct.
                     4. Stick to the text provided and do not make up any questions.
                     """
-            result_mcq = llm.invoke(mcqprompt)
+            result_mcq = crewllm.invoke(mcqprompt)
             st.subheader(":blue[MCQs for the topic:]")
             st.write(result_mcq.final_output)
     except Exception as e:
